@@ -138,7 +138,8 @@ local function validate_all_simple(params_rules, params_values)
 			formatted_values[param_name] = formatted_value
 		end
 	end
-	return formatted_values, errors
+
+	return formatted_values, next(errors) and errors or nil
 end
 
 -- messages variations:
@@ -149,14 +150,13 @@ local function validate_all(params_rules, params_values, messages)
 	messages = messages or {}
 
 	local formatted_values, errors = validate_all_simple(params_rules, params_values)
-	if next(errors) then
+	if errors then
 		local param_name, failed_rule_name = next(errors)
 
 		local msg = messages[param_name .. "." .. failed_rule_name]
 			or messages[param_name .. ".*"] or messages["*"]
-			or "invalid"
 
-		errors[param_name] = msg
+		errors[param_name] = msg or errors[param_name]
 		return formatted_values, errors
 	end
 
