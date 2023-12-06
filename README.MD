@@ -50,7 +50,7 @@ local validator = require("validator").middleware
 app:get("/", validator({
 	steamid = "required|string|starts_with:765|size:17,
 	amount  = "required|integer|min:1|max:100",
-	sum     = "nullable|numeric|min:1.5|max:99.5",
+	sum     = "optional|numeric|min:1.5|max:99.5",
 }), function(req, res, next)
 	assert(type(req.valid.amount) == "number")
 	assert(type(req.valid.steamid) == "string")
