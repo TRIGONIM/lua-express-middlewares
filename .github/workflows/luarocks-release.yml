@@ -1,0 +1,25 @@
+# source: https://github.com/TRIGONIM/lua-long-polling/blob/main/.github/workflows/luarocks-release.yml
+name: "Upload to Luarocks"
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  luarocks-upload:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nvim-neorocks/luarocks-tag-release@v5
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:
+          summary: "Collection of middlewares for lua-express"
+          detailed_description: |
+            lua-express (https://github.com/TRIGONIM/lua-express) is a lua port of express.js.
+            There is the lua versions of the original middlewares like cookie-parser,
+            body-parser, and custom ones like rate-limiter, validator, etc.
+            GitHub: https://github.com/TRIGONIM/lua-express-middlewares
+          labels: |
+            lua-express
