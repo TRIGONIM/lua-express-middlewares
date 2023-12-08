@@ -135,7 +135,7 @@ local function validate_all_simple(params_rules, params_values)
 	local formatted_values, errors = {}, {}
 	for param_name, ruleset in pairs(params_rules) do
 		local formatted_value, failed_rule_name = validate_value(params_values[param_name], ruleset)
-		if formatted_value == nil then
+		if failed_rule_name ~= nil then
 			errors[param_name] = failed_rule_name
 			break
 		else
