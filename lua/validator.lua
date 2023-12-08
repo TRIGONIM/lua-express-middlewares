@@ -38,6 +38,10 @@ rulesets["string"] = function(value)
 	end
 end
 
+rulesets["trim"] = function(value)
+	return value:match("^%s*(.-)%s*$")
+end
+
 rulesets["match"] = function(value, patt)
 	return ({value:match(patt)})[1] -- return only one value
 end
@@ -173,8 +177,8 @@ local function express_middleware(params_with_rules, messages) -- messages may b
 		end
 
 		local formatted_values, errors = validate_all(params_with_rules, params_values, messages)
-		if next(errors) then
-			local param_name, msg = next(errors)
+		if errors then
+			local param_name, msg = _G.next(errors)
 			next({
 				message = "Parameter validation failed. " .. param_name .. ": " .. msg,
 				status  = 400,
@@ -187,7 +191,7 @@ local function express_middleware(params_with_rules, messages) -- messages may b
 		end
 
 		if req.valid then print("validator: Some of middlewares already created the req.valid field. Override") end
-		req.valid = params_values
+		req.valid = formatted_values
 
 		next()
 	end
