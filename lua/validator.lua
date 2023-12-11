@@ -167,9 +167,15 @@ local function validate_all(params_rules, params_values, messages)
 	return formatted_values, nil
 end
 
+--- @class ExpressRequest
+--- @field valid table | nil validated parameters by [validator middleware](https://github.com/TRIGONIM/lua-express-middlewares)
+
 -- Извлекает параметры из запроса в соответствии с правилами и проверяет их
 -- Если указан messages, то в случае ошибки будет использовано сообщение из него
 local function express_middleware(params_with_rules, messages) -- messages may be nil
+	--- @param req ExpressRequest
+	--- @param _ ExpressResponse
+	--- @param next fun(err?: any)
 	return function(req, _, next)
 		local params_values = {}
 		for param_name in pairs(params_with_rules) do

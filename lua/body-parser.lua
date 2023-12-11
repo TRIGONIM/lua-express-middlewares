@@ -78,6 +78,11 @@ local function parse_query_string(str)
 	return params
 end
 
+--- @class ExpressRequest
+--- @field bodydata string | nil raw body data
+--- @field body table | nil parsed body data
+
+--- @return fun(req: ExpressRequest, res: ExpressResponse, next: fun(err?: any))
 function bodyparser.urlencoded(opts)
 	local typ = opts and opts.type or "application/x-www-form-urlencoded"
 

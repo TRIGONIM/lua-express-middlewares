@@ -1,6 +1,10 @@
 --- @usage
 --- local cookie_parser = require("cookie-parser")
 --- app:use(cookie_parser())
+
+--- @class ExpressRequest
+--- @field cookies table | nil -- table of parsed cookies
+
 return function(opts)
 	-- todo? signed cookies
 
