@@ -2,6 +2,12 @@
 
 It's for [lua-express](https://github.com/TRIGONIM/lua-express)
 
+## Installation:
+
+```bash
+luarocks install lua-express-middlewares
+```
+
 ## Usage:
 
 ### body-parser
@@ -31,7 +37,7 @@ local cookieparser = require("cookie-parser")
 
 ```lua
 local rate_limiter = require("rate-limiter-simple")
-app:use( rate_limiter{
+app:use( rate_limiter{ -- all options are optional. Default values shown below
 	frame_time = 60,
 	limit_amount = 120,
 	limit_on = function(req) return req:ip() end,
