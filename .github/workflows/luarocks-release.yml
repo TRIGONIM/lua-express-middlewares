@@ -1,20 +1,21 @@
 # source: https://github.com/TRIGONIM/lua-long-polling/blob/main/.github/workflows/luarocks-release.yml
-name: "Upload to Luarocks"
+name: "Luarocks Release"
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [ "main" ]
+    tags: [ "v*.*.*" ]
 
 jobs:
-  luarocks-upload:
-    runs-on: ubuntu-22.04
+  luarocks-release:
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: nvim-neorocks/luarocks-tag-release@v5
+      - uses: nvim-neorocks/luarocks-tag-release@v7
         env:
           LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
         with:
+          extra_luarocks_args: --force # update lr version on commit
           summary: "Collection of middlewares for lua-express"
           detailed_description: |
             lua-express (https://github.com/TRIGONIM/lua-express) is a lua port of express.js.
